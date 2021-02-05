@@ -1,0 +1,35 @@
+#!/bin/bash
+
+git config --global user.email "rustbotchessapp@gmail.com"
+git config --global user.name "pythonideas"
+
+#rm -rf .git
+
+#git init
+
+git checkout -b main
+
+git add .
+
+git commit -m "$*"
+
+#git commit -m "Initial commit"
+
+read -n1 -p "Push? [y,n]" doit
+
+if [[ $doit == "Y" || $doit == "y" ]]; then
+  MSG=$'\nPushing'
+  echo "$MSG"
+
+  #git branch -d master
+
+  #git push https://pythonideas:$GITHUB_PUSH_TOKEN@github.com/pythonideas/poetry --delete master
+
+  #git push https://rustbotchessapp:$GITLAB_PUSH_TOKEN@gitlab.com/rustbotchessapp/poetry --delete master
+
+  git push https://pythonideas:$GITHUB_PUSH_TOKEN@github.com/pythonideas/poetry main --force
+  
+  git push https://rustbotchessapp:$GITLAB_PUSH_TOKEN@gitlab.com/rustbotchessapp/poetry main --force
+else
+  echo $"\nPush canceled."
+fi
