@@ -1,3 +1,4 @@
+import asyncio
 from aiohttp import web
 import aiohttp_jinja2
 import jinja2
@@ -18,14 +19,26 @@ async def handle(request):
     }
 
 
-def init_func(argv=None):
+def init_func(argv=None, runner=False):
     app = web.Application()
 
     aiohttp_jinja2.setup(app, loader=jinja2.FileSystemLoader(TEMPLATE_PATH))
     app.add_routes([web.get('/', handle)])
     
-    return app
+    if runner:
+        return web.AppRunner(app)
+    else:
+        return app
 
 def start_server():
     #web.run_app(init_func(), host="127.0.0.1", port=int(os.environ.get("PORT", "8080")))
     web.run_app(init_func())
+
+def run_server():
+    runner = init_func(runner=True)
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(runner.setup())
+    site = web.TCPSite(runner, '0.0.0.0', 8080)
+    loop.run_until_complete(site.start())
+    loop.run_forever()
