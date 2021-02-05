@@ -1,5 +1,5 @@
 import asyncio
-import lichessbot.api as api
+import lichessbotpoetry.api as api
 import os
 
 task = None
