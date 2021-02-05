@@ -1,5 +1,6 @@
 import asyncio
 import lichessbotpoetry.api as api
+import lichessbotpoetry.server as server
 import os
 
 task = None
@@ -11,12 +12,13 @@ async def stream():
   await task
   print("task done")
 
-async def main():  
+async def main():      
     await asyncio.gather(stream())
 
 while True:
   try:
-    asyncio.run(main())
+    server.start_server()
+    #asyncio.run(main())
   except KeyboardInterrupt:
     if not task is None:
       print("cancelling task")
