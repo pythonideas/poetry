@@ -2,7 +2,8 @@ import asyncio
 import lichessbotpoetry.api as api
 import lichessbotpoetry.server as server
 import os
-import threading
+#import threading
+import multiprocessing
 
 task = None
 
@@ -16,10 +17,12 @@ async def stream():
 async def main():      
     await asyncio.gather(stream())
 
-while True:
+while True:    
   try:
-    t = threading.Thread(target=server.run_server)
-    t.start()
+    #t = threading.Thread(target=server.run_server)
+    #t.start()
+    p = multiprocessing.Process(target=server.run_server)
+    p.start()
     print("server started")
     asyncio.run(main())
     #main()
