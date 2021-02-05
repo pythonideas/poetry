@@ -1,5 +1,8 @@
 import aiohttp
 import json
+from .. import util
+
+util.demo()
 
 API_BASE_URL = "https://lichess.org"
 
