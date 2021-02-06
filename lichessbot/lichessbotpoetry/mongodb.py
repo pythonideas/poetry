@@ -61,3 +61,7 @@ update_result = tokens_coll.update_one(filter, set, upsert=True)
 print("matched", update_result.matched_count,
       "updated", update_result.modified_count)
 
+find = tokens_coll.find()
+
+for doc in find:
+    print("doc", doc)
