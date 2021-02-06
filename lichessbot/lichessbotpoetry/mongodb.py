@@ -1,4 +1,4 @@
-import os
+from os import environ as env
 
 from pymongo import MongoClient
 
@@ -7,7 +7,7 @@ from pprint import pprint
 
 # connect to MongoDB, change the << MONGODB URL >>
 # to reflect your own connection string
-client = MongoClient(os.environ.get("MONGODB_URI"))
+client = MongoClient(env.get("MONGODB_URI"))
 db = client.admin
 # Issue the serverStatus command and print the results
 serverStatusResult = db.command("serverStatus")
